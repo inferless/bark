@@ -9,6 +9,8 @@ class InferlessPythonModel:
     def initialize(self):
         self.processor = AutoProcessor.from_pretrained("suno/bark")
         self.model = AutoModel.from_pretrained("suno/bark")
+
+        self.model.to('cuda:0')
     
     def infer(self, inputs):
         prompt = inputs["prompt"]
@@ -16,6 +18,9 @@ class InferlessPythonModel:
             text=[prompt],
             return_tensors="pt",
         )
+
+        inputs = {k: v.to('cuda') for k, v in inputs.items()}
+        
         speech_values = self.model.generate(**inputs, do_sample=True)
         audio_numpy = speech_values.cpu().numpy().squeeze()
 
