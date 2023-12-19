@@ -2,7 +2,7 @@ from transformers import AutoProcessor, AutoModel
 import numpy as np
 import io
 import base64
-from scipy.io.wavfile import write
+import soundfile as sf
 
 
 class InferlessPythonModel:
@@ -20,7 +20,7 @@ class InferlessPythonModel:
         audio_numpy = speech_values.cpu().numpy().squeeze()
 
         buffer = io.BytesIO()
-        write(buffer, self.model.generation_config.sample_rate, audio_numpy)
+        sf.write(buffer, audio_numpy, self.model.generation_config.sample_rate, format='WAV')
         buffer.seek(0)
 
         base64_audio = base64.b64encode(buffer.read()).decode('utf-8')
