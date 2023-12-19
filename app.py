@@ -1,4 +1,8 @@
 from transformers import AutoProcessor, AutoModel
+import numpy as np
+import io
+import base64
+from scipy.io.wavfile import write
 
 
 class InferlessPythonModel:
