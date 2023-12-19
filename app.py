@@ -10,7 +10,7 @@ class InferlessPythonModel:
         self.processor = AutoProcessor.from_pretrained("suno/bark")
         self.model = AutoModel.from_pretrained("suno/bark")
 
-        self.model.to('cuda:0')
+        self.model.to('cuda')
     
     def infer(self, inputs):
         prompt = inputs["prompt"]
