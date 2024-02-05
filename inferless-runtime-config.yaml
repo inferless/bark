@@ -4,4 +4,4 @@ build:
   python_packages:
     - "transformers>=4.31.0"
     - "soundfile==0.12.1"
-    - "torch==2.1.0"
+    - "torch==2.1.2"

@@ -1,0 +1,14 @@
+{
+    "outputs": [
+      {
+        "name": "generated_audio_base64",
+        "datatype": "BYTES",
+        "shape": [
+          1
+        ],
+        "data": [
+          "blank"
+        ]
+      }
+    ]
+}
