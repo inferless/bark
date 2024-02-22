@@ -27,6 +27,7 @@ configuration:
   min_replica: '0'
   scale_down_delay: '600'
 env:
+  ENV: ''
   # Add your environment variables here
   # ENV: 'PROD'
 secrets:
