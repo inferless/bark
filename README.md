@@ -21,75 +21,18 @@ This will create a copy of the repository in your own GitHub account, allowing y
 ### Create a Custom Runtime in Inferless
 To access the custom runtime window in Inferless, simply navigate to the sidebar and click on the Create new Runtime button. A pop-up will appear.
 
-Next, provide a suitable name for your custom runtime and proceed by uploading the config.yaml file given above. Finally, ensure you save your changes by clicking on the save button.
+Next, provide a suitable name for your custom runtime and proceed by uploading the inferless-runtime-config.yaml file given above. Finally, ensure you save your changes by clicking on the save button.
 
 ### Import the Model in Inferless
-Log in to your inferless account, select the workspace you want the model to be imported into and click the Add Model button.
+Log in to your inferless account, select the workspace you want the model to be imported into and click the `Add a custom model` button.
 
-Select the PyTorch as framework and choose **Repo(custom code)** as your model source and use the forked repo URL as the **Model URL**.
+- Select `Github` as the method of upload from the Provider list and then select your Github Repository and the branch.
+- Choose the type of machine, and specify the minimum and maximum number of replicas for deploying your model.
+- Configure Custom Runtime ( If you have pip or apt packages), choose Volume, Secrets and set Environment variables like Inference Timeout / Container Concurrency / Scale Down Timeout
+- Once you click “Continue,” click Deploy to start the model import process.
+  
+Refer [this link](https://docs.inferless.com/integrations/git-custom-code/git--custom-code) for more information on model import.
 
-Enter all the required details to Import your model. Refer [this link](https://docs.inferless.com/integrations/github-custom-code) for more information on model import.
-
-The following is a sample Input and Output JSON for this model which you can use while importing this model on Inferless.
-
-### Input
-```json
-{
-  "inputs": [
-    {
-      "name": "prompt",
-      "datatype": "BYTES",
-      "shape": [
-        1
-      ],
-      "data": [
-        "Hello, my name is Suno. And, uh — and I like pizza. [laughs] But I also have other interests such as playing tic tac toe."
-      ]
-    }
-  ]
-}
-```
-
-### Output
-```json
-{
-  "outputs": [
-    {
-      "name": "generated_audio_base64",
-      "datatype": "BYTES",
-      "shape": [
-        1
-      ],
-      "data": [
-        "blank"
-      ]
-    }
-  ]
-}
-```
-
----
-## Curl Command
-Following is an example of the curl command you can use to make inference. You can find the exact curl command in the Model's API page in Inferless.
-```bash
-curl --location '<your_inference_url>' \
-          --header 'Content-Type: application/json' \
-          --header 'Authorization: Bearer <your_api_key>' \
-          --data '{
-              "inputs": [
-                {
-                  "name": "prompt",
-                  "datatype": "BYTES",
-                  "shape": [
-                    1
-                  ],
-                  "data": [
-                    "Hello, my name is Suno. And, uh — and I like pizza. [laughs] But I also have other interests such as playing tic tac toe."
-                  ]
-                }
-              ]
-            }'
-```
 
 ---
 ## Customizing the Code
@@ -104,6 +47,6 @@ def infer(self, inputs):
     prompt = inputs["prompt"]
 ```
 
-**Finalize** - This function is used to perform any cleanup activity for example you can unload the model from the gpu by setting `self.pipe = None`.
+**Finalize** - This function is used to perform any cleanup activity for example you can unload the model from the gpu by setting `self.model = None`.
 
 For more information refer to the [Inferless docs](https://docs.inferless.com/).
